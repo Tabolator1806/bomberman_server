@@ -35,6 +35,16 @@ class Grass extends Tile{
 }
 
 class Ballon extends Entity{
+    public $nextx;
+    public $nexty;
     public $spritex=0;
     public $spritey=15;
+    public function __construct($x,$y,$mapArray) {
+        $this->x = $x;
+        $this->y = $y;
+        if($mapArray[$this->x-1][$this->y-1]->collision==0){
+            $this->nextx = $this->x;
+            $this->nexty = $this->y;
+        }
+    }
 }

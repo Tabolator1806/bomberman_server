@@ -163,24 +163,25 @@
     function generate_map($w,$h){
         $array = [];
         for($x=0;$x<$w;$x++){
+            array_push($array,[]);
             for($y=0;$y<$h;$y++){
                 if($x==0||$x==$w-1||$y==0||$y==$h-1||($x%2==0&&$y%2==0)){
-                    array_push($array,new Border($x,$y));
+                    array_push($array[$x],new Border($x,$y));
                 }
                 else if(($x==1||$x==2)&&($y==1||$y==2)){
-                    array_push($array,new Grass($x,$y));
+                    array_push($array[$x],new Grass($x,$y));
                 }
                 else{
-                    $randomInt = random_int(0,10);
+                    $randomInt = random_int(0,5);
                     switch ($randomInt) {
                         case 0:
-                            array_push($array,new BrickWall($x,$y));
+                            array_push($array[$x],new BrickWall($x,$y));
                             break;
                         // case 3:
                         //     array_push($array,new Ballon($x,$y));
                         //     break;
                         case $randomInt>0:
-                            array_push($array,new Grass($x,$y));
+                            array_push($array[$x],new Grass($x,$y));
                             break;
                         default:
                             echo "wtf";
@@ -192,13 +193,17 @@
     }
     function generate_enemy($w,$h,$mapArray){
         $array = [];
-        $i=0;
+        $ballonAmount = 18;
         for($x=0;$x<$w;$x++){
+            array_push($array,[]);
             for($y=0;$y<$h;$y++){
-                if($mapArray[$i]->collision==0){
-                    array_push($array,new Ballon($x,$y));
+                if($mapArray[$x][$y]->collision==0){
+                    $randomInt = random_int(0,9);
+                    if($randomInt==0&&$ballonAmount>0){
+                        array_push($array[$x],new Ballon($x,$y,$mapArray));
+                        $ballonAmount-=1;
+                    }
                 }
-                $i+=1;
             }
         }
         return $array;
