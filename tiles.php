@@ -42,9 +42,33 @@ class Ballon extends Entity{
     public function __construct($x,$y,$mapArray) {
         $this->x = $x;
         $this->y = $y;
-        if($mapArray[$this->x-1][$this->y-1]->collision==0){
-            $this->nextx = $this->x;
+        $this->triangulate($mapArray);
+    }
+    public function triangulate($mapArray){
+        if($mapArray[$this->x-1][$this->y]->collision==0){
+            $this->nextx = $this->x-1;
             $this->nexty = $this->y;
         }
+        else if ($mapArray[$this->x+1][$this->y]->collision==0){
+            $this->nextx = $this->x+1;
+            $this->nexty = $this->y;
+        }
+        else if ($mapArray[$this->x][$this->y-1]->collision==0){
+            $this->nextx = $this->x;
+            $this->nexty = $this->y-1;
+        }
+        else if($mapArray[$this->x][$this->y+1]->collision==0){
+            $this->nextx = $this->x;
+            $this->nexty = $this->y+1;
+        }
+    }
+    public function move($mapArray){
+        $this->x = $this->nextx;
+        $this->y = $this->nexty;
+        $this->triangulate();
+    }
+    
+    public function pingas(){
+        echo "pingas";
     }
 }

@@ -10,7 +10,7 @@
     $clients = array($server); // tablica klientów
     $write  = NULL;
     $except = NULL;
-    $mapWidth = 30;
+    $mapWidth = 31;
     $mapHeight = 13;
     $mapLayout=generate_map($mapWidth,$mapHeight);
     $entitiesLayout = generate_enemy($mapWidth,$mapHeight,$mapLayout);
@@ -35,7 +35,9 @@
             stream_set_blocking($client, false);
 
             $data=["msg" => "Nastąpiło połączenie"];
-            
+            // foreach($entitiesLayout as $enemy){
+            //     $enemy->move();
+            // }
             send_message($clients, mask(json_encode([
                 "gamedata"=>[
                     "mapdata"=>[
@@ -44,7 +46,7 @@
                         "mapHeight"=>$mapHeight
                     ],
                     "entitydata"=>[
-                        "entitiesLayout"=>$entitiesLayout
+                        "entityLayout"=>$entitiesLayout
                     ]
                 ]
             ])));
@@ -87,7 +89,7 @@
                     "mapHeight"=>$mapHeight
                 ],
                 "entitydata"=>[
-                    "entitiesLayout"=>$entitiesLayout
+                    "entityLayout"=>$entitiesLayout
                 ]
             ]
         ])));
@@ -124,7 +126,7 @@
         $length = strlen($text);
         if ($length <= 125)
             $header = pack('CC', $b1, $length);
-        elseif ($length > 125 && $length < 65536)
+        elseif ($length > 125&& $length < 65536)
             $header = pack('CCn', $b1, 126, $length);
         elseif ($length >= 65536)
             $header = pack('CCNN', $b1, 127, $length);
@@ -195,12 +197,11 @@
         $array = [];
         $ballonAmount = 18;
         for($x=0;$x<$w;$x++){
-            array_push($array,[]);
             for($y=0;$y<$h;$y++){
                 if($mapArray[$x][$y]->collision==0){
                     $randomInt = random_int(0,9);
                     if($randomInt==0&&$ballonAmount>0){
-                        array_push($array[$x],new Ballon($x,$y,$mapArray));
+                        array_push($array,new Ballon($x,$y,$mapArray));
                         $ballonAmount-=1;
                     }
                 }
