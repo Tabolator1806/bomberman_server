@@ -18,7 +18,7 @@
 
     while (true) {
         $changed = $clients;
-        stream_select($changed, $write, $except, 2);
+        stream_select($changed, $write, $except, 1);
     
         if (in_array($server, $changed)) {
             $client = @stream_socket_accept($server);
@@ -35,9 +35,6 @@
             stream_set_blocking($client, false);
 
             $data=["msg" => "Nastąpiło połączenie"];
-            // foreach($entitiesLayout as $enemy){
-            //     $enemy->move();
-            // }
             send_message($clients, mask(json_encode([
                 "gamedata"=>[
                     "mapdata"=>[
@@ -81,6 +78,11 @@
                 send_message($clients, $response);
             }
         }
+        foreach($entitiesLayout as $enemy){
+            $enemy->move($mapLayout);
+            print_r($enemy->x . ", ". $enemy->y. "\n");
+        }
+        print_r("---------------------------------------------");
         send_message($clients, mask(json_encode([
             "gamedata"=>[
                 "mapdata"=>[
@@ -195,7 +197,7 @@
     }
     function generate_enemy($w,$h,$mapArray){
         $array = [];
-        $ballonAmount = 18;
+        $ballonAmount = 1;
         for($x=0;$x<$w;$x++){
             for($y=0;$y<$h;$y++){
                 if($mapArray[$x][$y]->collision==0){
