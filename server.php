@@ -79,7 +79,8 @@
             }
         }
         foreach($entitiesLayout as $enemy){
-            print_r($enemy->direction. "\n");
+            $enemy->move($mapLayout);
+            print_r($enemy->direction. "||". $enemy->x . "," . $enemy->y. "\n");
         }
         send_message($clients, mask(json_encode([
             "gamedata"=>[
@@ -195,7 +196,7 @@
     }
     function generate_enemy($w,$h,$mapArray){
         $array = [];
-        $ballonAmount = 1;
+        $ballonAmount = 5;
         for($x=0;$x<$w;$x++){
             for($y=0;$y<$h;$y++){
                 if($mapArray[$x][$y]->collision==0){
