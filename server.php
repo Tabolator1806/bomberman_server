@@ -196,7 +196,7 @@
     }
     function generate_enemy($w,$h,$mapArray){
         $array = [];
-        $ballonAmount = 5;
+        $ballonAmount = 18;
         for($x=0;$x<$w;$x++){
             for($y=0;$y<$h;$y++){
                 if($mapArray[$x][$y]->collision==0){

@@ -89,7 +89,7 @@ class Ballon extends Entity{
                         break;
                     case 2:
                         if($mapArray[$this->x][$this->y+1]->collision==0){
-                            $this->direction=="down";
+                            $this->direction="down";
                             $this->nextx = $this->x;
                             $this->nexty = $this->y+1;
                         }
@@ -129,7 +129,7 @@ class Ballon extends Entity{
                         break;
                     case 2:
                         if($mapArray[$this->x][$this->y+1]->collision==0){
-                            $this->direction=="down";
+                            $this->direction="down";
                             $this->nextx = $this->x;
                             $this->nexty = $this->y+1;
                         }
@@ -169,7 +169,7 @@ class Ballon extends Entity{
                         break;
                     case 2:
                         if($mapArray[$this->x][$this->y+1]->collision==0){
-                            $this->direction=="down";
+                            $this->direction="down";
                             $this->nextx = $this->x;
                             $this->nexty = $this->y+1;
                         }
@@ -209,7 +209,7 @@ class Ballon extends Entity{
                         break;
                     case 2:
                         if($mapArray[$this->x][$this->y-1]->collision==0){
-                            $this->direction=="up";
+                            $this->direction="up";
                             $this->nextx = $this->x;
                             $this->nexty = $this->y-1;
                         }
