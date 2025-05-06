@@ -79,10 +79,8 @@
             }
         }
         foreach($entitiesLayout as $enemy){
-            $enemy->move($mapLayout);
-            print_r($enemy->x . ", ". $enemy->y. "\n");
+            print_r($enemy->direction. "\n");
         }
-        print_r("---------------------------------------------");
         send_message($clients, mask(json_encode([
             "gamedata"=>[
                 "mapdata"=>[

@@ -35,41 +35,107 @@ class Grass extends Tile{
 }
 
 class Ballon extends Entity{
-    public $nextx;
-    public $nexty;
+    public $direction = "";
     public $spritex=0;
     public $spritey=15;
     public $collision=1;
     public function __construct($x,$y,$mapArray) {
         $this->x = $x;
         $this->y = $y;
+        switch(random_int(0,3)){
+            case 0:
+                $this->direction = "left";
+                break;
+            case 1:
+                $this->direction = "right";
+                break;
+            case 2:
+                $this->direction = "up";
+                break;
+            case 3:
+                $this->direction = "down";
+                break;    
+            
+        }
         $this->triangulate($mapArray);
     }
     public function triangulate($mapArray){
-        if($mapArray[$this->x-1][$this->y]->collision==0){
-            $this->nextx = $this->x-1;
-            $this->nexty = $this->y;
+        if($this->direction=="left"){
+            if($mapArray[$this->x-1][$this->y]->collision==1){
+                if ($mapArray[$this->x][$this->y-1]->collision==0){
+                    $this->direction="up";
+                }
+                else if ($mapArray[$this->x+1][$this->y]->collision==0){
+                    $this->direction="right";
+                }
+                else if($mapArray[$this->x][$this->y+1]->collision==0){
+                    $this->direction=="down";
+                }
+            }
         }
-        else if ($mapArray[$this->x][$this->y-1]->collision==0){
-            $this->nextx = $this->x;
-            $this->nexty = $this->y-1;
+        else if($this->direction=="right"){
+            if($mapArray[$this->x-1][$this->y]->collision==1){
+                if ($mapArray[$this->x][$this->y-1]->collision==0){
+                    $this->direction="up";
+                }
+                else if ($mapArray[$this->x-1][$this->y]->collision==0){
+                    $this->direction="left";
+                }
+                else if($mapArray[$this->x][$this->y+1]->collision==0){
+                    $this->direction=="down";
+                }
+            }
         }
-        else if ($mapArray[$this->x+1][$this->y]->collision==0){
-            $this->nextx = $this->x+1;
-            $this->nexty = $this->y;
+        else if($this->direction=="up"){
+            if($mapArray[$this->x-1][$this->y]->collision==1){
+                if ($mapArray[$this->x-1][$this->y]->collision==0){
+                    $this->direction="left";
+                }
+                else if ($mapArray[$this->x+1][$this->y]->collision==0){
+                    $this->direction="right";
+                }
+                else if($mapArray[$this->x][$this->y+1]->collision==0){
+                    $this->direction=="down";
+                }
+            }
         }
-        else if($mapArray[$this->x][$this->y+1]->collision==0){
-            $this->nextx = $this->x;
-            $this->nexty = $this->y+1;
+        else if($this->direction=="down"){
+            if($mapArray[$this->x-1][$this->y]->collision==1){
+                if ($mapArray[$this->x][$this->y-1]->collision==0){
+                    $this->direction="up";
+                }
+                else if ($mapArray[$this->x+1][$this->y]->collision==0){
+                    $this->direction="right";
+                }
+                else if($mapArray[$this->x-1][$this->y+1]->collision==0){
+                    $this->direction=="left";
+                }
+            }
         }
+        // if($mapArray[$this->x-1][$this->y]->collision==0){
+        //     $this->nextx = $this->x-1;
+        //     $this->nexty = $this->y;
+        // }
+        // else if ($mapArray[$this->x][$this->y-1]->collision==0){
+        //     $this->nextx = $this->x;
+        //     $this->nexty = $this->y-1;
+        // }
+        // else if ($mapArray[$this->x+1][$this->y]->collision==0){
+        //     $this->nextx = $this->x+1;
+        //     $this->nexty = $this->y;
+        // }
+        // else if($mapArray[$this->x][$this->y+1]->collision==0){
+        //     $this->nextx = $this->x;
+        //     $this->nexty = $this->y+1;
+        // }
     }
-    public function move($mapArray){
-        $this->x = $this->nextx;
-        $this->y = $this->nexty;
-        $this->triangulate($mapArray);
-    }
+    // public function move($mapArray){
+    //     $this->x = $this->nextx;
+    //     $this->y = $this->nexty;
+    //     $this->triangulate($mapArray);
+    // }
     
-    public function pingas(){
-        echo "pingas";
-    }
+    // public function pingas(){
+    //     echo "pingas";
+    // }
 }
