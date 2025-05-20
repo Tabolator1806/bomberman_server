@@ -14,6 +14,7 @@
     $mapHeight = 13;
     $mapLayout=generate_map($mapWidth,$mapHeight);
     $entitiesLayout = generate_enemy($mapWidth,$mapHeight,$mapLayout);
+    $player = new Player(1,1)
 
 
     while (true) {
@@ -43,7 +44,8 @@
                         "mapHeight"=>$mapHeight
                     ],
                     "entitydata"=>[
-                        "entityLayout"=>$entitiesLayout
+                        "entityLayout"=>$entitiesLayout,
+                        "player"=>$player
                     ]
                 ]
             ])));
@@ -90,7 +92,8 @@
                     "mapHeight"=>$mapHeight
                 ],
                 "entitydata"=>[
-                    "entityLayout"=>$entitiesLayout
+                    "entityLayout"=>$entitiesLayout,
+                    "player"=>$player
                 ]
             ]
         ])));

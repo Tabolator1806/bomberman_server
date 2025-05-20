@@ -36,8 +36,8 @@ class Grass extends Tile{
 
 class Ballon extends Entity{
     public $direction = "";
-    public $spritex=0;
-    public $spritey=15;
+    // public $spritex=0;
+    // public $spritey=15;
     public $collision=1;
     public $nextx = 0;
     public $nexty = 0;
@@ -247,7 +247,14 @@ class Ballon extends Entity{
         $this->triangulate($mapArray);
     }
     
+    
     // public function pingas(){
     //     echo "pingas";
     // }
+}
+class Player extends Entity{
+    public function __construct(){
+        $this->x=1;
+        $this->y=1;
+    }    
 }
