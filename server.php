@@ -10,11 +10,11 @@
     $clients = array($server); // tablica klientów
     $write  = NULL;
     $except = NULL;
-    $mapWidth = 31;
-    $mapHeight = 13;
+    $mapWidth = 25;
+    $mapHeight = 25;
     $mapLayout=generate_map($mapWidth,$mapHeight);
     $entitiesLayout = generate_enemy($mapWidth,$mapHeight,$mapLayout);
-    $player = new Player(1,1)
+    $player = new Player(1,1);
 
 
     while (true) {
@@ -199,7 +199,7 @@
     }
     function generate_enemy($w,$h,$mapArray){
         $array = [];
-        $ballonAmount = 18;
+        $ballonAmount = ($w+$h)/2;
         for($x=0;$x<$w;$x++){
             for($y=0;$y<$h;$y++){
                 if($mapArray[$x][$y]->collision==0){
