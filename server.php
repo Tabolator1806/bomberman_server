@@ -1,17 +1,17 @@
     <?php
     require_once("tiles.php");
-    $host = 'localhost'; // moja domena w ct8.pl
+    $host = '192.168.209.42'; // moja domena w ct8.pl
     $port = 46089; // zarezerwowany w panelu port
     $transport = 'http';
-    $server = stream_socket_server("tcp://localhost:46089", $errno, $errstr);
+    $server = stream_socket_server("tcp://192.168.209.42:46089", $errno, $errstr);
     if (!$server) {
         die("$errstr ($errno)");
     }
     $clients = array($server); // tablica klientów
     $write  = NULL;
     $except = NULL;
-    $mapWidth = 25;
-    $mapHeight = 25;
+    $mapWidth = 40;
+    $mapHeight = 15;
     $mapLayout=generate_map($mapWidth,$mapHeight);
     $entitiesLayout = generate_enemy($mapWidth,$mapHeight,$mapLayout);
     $player = new Player(1,1);

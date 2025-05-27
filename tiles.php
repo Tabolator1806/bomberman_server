@@ -64,6 +64,7 @@ class Ballon extends Entity{
         $this->triangulate($mapArray);
     }
     public function triangulate($mapArray){
+        $randomNumber = random_int(0,10);
         if($this->direction=="left"){
             if($mapArray[$this->x-1][$this->y]->collision==1){
                 switch(random_int(0,2)){
@@ -100,8 +101,36 @@ class Ballon extends Entity{
                 }
             }
             else{
-                $this->nextx = $this->x-1;
-                $this->nexty = $this->y;
+                switch($randomNumber){
+                    case $randomNumber<=20:
+                        switch(random_int(0,1)){
+                            case 0:
+                                if ($mapArray[$this->x][$this->y-1]->collision==0){
+                                    $this->direction="up";
+                                    $this->nextx = $this->x;
+                                    $this->nexty = $this->y-1;
+                                }
+                                else{
+                                    $this->triangulate($mapArray);
+                                }
+                                break;
+                            case 1:
+                                if($mapArray[$this->x][$this->y+1]->collision==0){
+                                    $this->direction="down";
+                                    $this->nextx = $this->x;
+                                    $this->nexty = $this->y+1;
+                                }
+                                else{
+                                    $this->triangulate($mapArray);
+                                }
+                                break;
+                        }
+                        break;
+                    case $randomNumber>20:
+                            $this->nextx = $this->x-1;
+                            $this->nexty = $this->y;
+                        break;
+                }
             }
         }
         else if($this->direction=="right"){
@@ -140,10 +169,36 @@ class Ballon extends Entity{
                 }
             }
             else{
-                $this->nextx = $this->x+1;
-                $this->nexty = $this->y;
+                switch($randomNumber){
+                    case $randomNumber<=20:
+                        switch(random_int(0,1)){
+                            case 0:
+                                if ($mapArray[$this->x][$this->y-1]->collision==0){
+                                    $this->direction="up";
+                                    $this->nextx = $this->x;
+                                    $this->nexty = $this->y-1;
+                                }
+                                else{
+                                    $this->triangulate($mapArray);
+                                }
+                                break;
+                            case 1:
+                                if($mapArray[$this->x][$this->y+1]->collision==0){
+                                    $this->direction="down";
+                                    $this->nextx = $this->x;
+                                    $this->nexty = $this->y+1;
+                                }
+                                else{
+                                    $this->triangulate($mapArray);
+                                }
+                                break;
+                        }
+                    case $randomNumber>20:
+                        $this->nextx = $this->x+1;
+                        $this->nexty = $this->y;
             }
         }
+    }
         else if($this->direction=="up"){
             if($mapArray[$this->x][$this->y-1]->collision==1){
                 switch(random_int(0,2)){
@@ -180,10 +235,36 @@ class Ballon extends Entity{
                 }
             }
             else{
-                $this->nextx = $this->x;
-                $this->nexty = $this->y-1;
+                switch($randomNumber){
+                    case $randomNumber<=20:
+                        switch(random_int(0,1)){
+                            case 0:
+                                if ($mapArray[$this->x-1][$this->y]->collision==0){
+                                    $this->direction="left";
+                                    $this->nextx = $this->x-1;
+                                    $this->nexty = $this->y;
+                                }
+                                else{
+                                    $this->triangulate($mapArray);
+                                }
+                                break;
+                            case 1:
+                                if ($mapArray[$this->x+1][$this->y]->collision==0){
+                                    $this->direction="right";
+                                    $this->nextx = $this->x+1;
+                                    $this->nexty = $this->y;
+                                }
+                                else{
+                                    $this->triangulate($mapArray);
+                                }
+                                break;
+                        }
+                    case $randomNumber>20:
+                        $this->nextx = $this->x;
+                        $this->nexty = $this->y-1;
             }
         }
+    }
         else if($this->direction=="down"){
             if($mapArray[$this->x][$this->y+1]->collision==1){
                 switch(random_int(0,2)){
@@ -220,10 +301,36 @@ class Ballon extends Entity{
                 }
             }
             else{
-                $this->nextx = $this->x;
-                $this->nexty = $this->y+1;
+                switch($randomNumber){
+                    case $randomNumber<=20:
+                        switch(random_int(0,1)){
+                            case 0:
+                                if ($mapArray[$this->x-1][$this->y]->collision==0){
+                                    $this->direction="left";
+                                    $this->nextx = $this->x-1;
+                                    $this->nexty = $this->y;
+                                }
+                                else{
+                                    $this->triangulate($mapArray);
+                                }
+                                break;
+                            case 1:
+                                if ($mapArray[$this->x+1][$this->y]->collision==0){
+                                    $this->direction="right";
+                                    $this->nextx = $this->x+1;
+                                    $this->nexty = $this->y;
+                                }
+                                else{
+                                    $this->triangulate($mapArray);
+                                }
+                                break;
+                        }
+                    case $randomNumber>20:
+                        $this->nextx = $this->x;
+                        $this->nexty = $this->y+1;
             }
         }
+    }
         // if($mapArray[$this->x-1][$this->y]->collision==0){
         //     $this->nextx = $this->x-1;
         //     $this->nexty = $this->y;
